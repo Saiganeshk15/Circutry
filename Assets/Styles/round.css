@@ -1,0 +1,72 @@
+* {
+    padding: 0px;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #008DDA !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper> * {
+    margin-top: 1%;
+}
+
+ul {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+    width: 60%;
+    padding: 10px;
+}
+
+ul>div {
+    text-align: center;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ul> div > label {
+    padding-left: 10px;
+}
+
+input[type='radio'] {
+    height: 20px;
+    width: 20px;
+    position: relative;
+}
+
+.login-btn{
+    width: 15% !important;
+    height: 50px !important;
+    font-size: 20px;
+    background-color: #dddddd;
+    color: #000;
+    margin-bottom: 5%;
+    border: none;
+    border-radius: 10px;
+}
+.login-btn:hover{
+    background-color: #fefefe !important;
+    border: solid 1px #393939 !important;
+}
