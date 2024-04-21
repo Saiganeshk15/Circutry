@@ -1,0 +1,25 @@
+* {
+    padding: 0px;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+html{
+    background-color: #008DDA !important;
+    height: 100vh !important;
+}
+
+body {
+    width: 100vw;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+nav {
+    display: flex;
+    height: 10vh !important;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    margin: 10px 0px;
+}
