@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Circuitry | Login</title>
     <link rel="stylesheet" href="Assets/Styles/style.css">
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+    <link rel="shortcut icon" href="Assets/Images/ieee.png" type="image/x-icon">
 </head>
 
 <body>
@@ -15,19 +18,23 @@
         <img src="Assets/Images/pes.png" alt="pes logo">
     </nav>
     <div class="login">
-        <form action="">
+        <form name="login">
             <h1>Login</h1>
             <div class="input-group">
-                <input required="" type="text" name="text" autocomplete="off" class="input">
+                <input required="" type="text" name="r1" autocomplete="on" class="input">
                 <label class="user-label">Roll No 1</label>
+                <p id="w1">Enter valid 10 dgiit roll no</p>
             </div>
             <div class="input-group">
-                <input required="" type="text" name="text" autocomplete="off" class="input">
+                <input required="" type="text" name="r2" autocomplete="on" class="input">
                 <label class="user-label">Roll No 2</label>
+                <p id="w2">Enter valid 10 dgiit roll no</p>
             </div>
             <input class="login-btn" type="submit" value="Log In">
         </form>
     </div>
+    <script src="Assets/JavaScript/config.js"></script>
+    <script src="Assets/JavaScript/indedx.js"></script>
 </body>
 
 </html>

@@ -56,10 +56,7 @@ input:valid~label {
     transform: translateY(-5%) scale(0.8);
     background-color: transparent;
     color: #000;
-    -webkit-transform: translateY(-5%) scale(0.8);
-    -moz-transform: translateY(-5%) scale(0.8);
-    -ms-transform: translateY(-5%) scale(0.8);
-    -o-transform: translateY(-5%) scale(0.8);
+    left: 10px;
 }
 
 /* Change autocomplete styles in WebKit */
@@ -72,7 +69,7 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-    -webkit-text-fill-color: white;
+    -webkit-text-fill-color: black;
     -webkit-box-shadow: 0 0 0px 1000px transparent inset;
     transition: background-color 5000s ease-in-out 0s;
 }
@@ -107,12 +104,19 @@ form{
     color: #000;
     border: none;
     border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
 }
 .login-btn:hover{
     background-color: #ACE2E1 !important;
     border: solid 1px #393939 !important;
+}
+
+#w1, #w2 {
+    font-size: 10px;
+    margin-left: 10px;
+    color: red;
+    display: none;
+}
+
+.war{
+    display: block !important;
 }
