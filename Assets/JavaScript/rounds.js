@@ -83,8 +83,9 @@ input.forEach((el) => {
 //save button
 saveBtn.addEventListener("click", async (e) => {
     checked[currentQuestion] = value;
+    console.log(value);
     if (value == "0") {
-        alert("Select a valid option next");
+        alert("Select a valid option.");
         return;
     } else if (value == image) {
         if (scores[currentQuestion]) {
@@ -108,6 +109,7 @@ saveBtn.addEventListener("click", async (e) => {
             });
         }
     }
+    value = "0";
 });
 
 //nextBtn or form submit
