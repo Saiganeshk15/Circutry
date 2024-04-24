@@ -5,6 +5,7 @@ const userDoc = localStorage.getItem("userDoc");
 const users = db.collection("users");
 const questions = db.collection("round2");
 const team = users.doc(userDoc).get();
+const scoreCol = db.collection("score");
 
 team.then((doc) => {
     if (doc.data().route == "Round2.html") {
@@ -15,6 +16,7 @@ team.then((doc) => {
 
 let arr,
     r1score,
+    p2,
     score,
     value = "0",
     image,
@@ -27,6 +29,18 @@ async function getScore() {
         checked = doc.data().r2checked;
         scores = doc.data().r2scores;
         r1score = doc.data().score;
+        p2 = doc.data().p2;
+    });
+}
+
+function colorChanger() {
+    var count = 0;
+    checked.forEach((e) => {
+        if (e) {
+            document.getElementById(`q${count + 1}`).style.backgroundColor =
+                "#0f0";
+        }
+        count++;
     });
 }
 
@@ -35,6 +49,7 @@ const input = document.querySelectorAll('input[name="options"]');
 const saveBtn = document.getElementById("save");
 const nxtBtn = document.getElementById("next");
 const submitBtn = document.getElementById("submit");
+const saveNextBtn = document.getElementById("save-next");
 const questionNo = document.getElementById("qno");
 const questionText = document.getElementById("question");
 const questionImage = document.getElementById("que-img");
@@ -49,6 +64,7 @@ async function displayQuestion() {
     if (request == 0) {
         await getScore();
         request = 1;
+        colorChanger();
     }
     if (checked[currentQuestion]) {
         document.getElementById(checked[currentQuestion]).checked = true;
@@ -96,6 +112,7 @@ input.forEach((el) => {
 });
 
 //save button
+
 saveBtn.addEventListener("click", async (e) => {
     checked[currentQuestion] = value;
     if (value == "0") {
@@ -123,11 +140,52 @@ saveBtn.addEventListener("click", async (e) => {
             });
         }
     }
+    colorChanger();
     value = "0";
 });
 
 //nextBtn or form submit
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    form.reset();
+    if (currentQuestion < 9) {
+        currentQuestion = currentQuestion + 1;
+        displayQuestion();
+    } else {
+        currentQuestion = 0;
+        displayQuestion();
+    }
+});
+
+saveNextBtn.addEventListener("click", async (e) => {
+    checked[currentQuestion] = value;
+    if (value == "0") {
+        alert("Select a valid option.");
+        return;
+    } else if (value == image) {
+        if (scores[currentQuestion]) {
+        } else {
+            score += 1;
+        }
+        scores[currentQuestion] = 1;
+        await users.doc(userDoc).update({
+            r2scores: scores,
+            r2checked: checked,
+            r2score: score,
+        });
+    } else {
+        if (scores[currentQuestion] == 1) {
+            scores[currentQuestion] = 0;
+            score -= 1;
+            await users.doc(userDoc).update({
+                r2scores: scores,
+                r2checked: checked,
+                r2score: score,
+            });
+        }
+    }
+    colorChanger();
+    value = "0";
     e.preventDefault();
     form.reset();
     if (currentQuestion < 9) {
@@ -156,14 +214,20 @@ submitBtn.addEventListener("click", async (e) => {
             score: r1score + score,
             route: "Round3.html",
         });
+        await scoreCol.doc(userDoc).set({
+            score: r1score + score,
+            timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+            p2: p2,
+        });
         //round3 question decider
         await users.doc(userDoc).set(
             {
                 r3q: Math.floor(Math.random() * 4) + 1,
+                hintViewed: 0,
             },
             { merge: true }
         );
-        alert(`Your score is ${score}. You are quilifed for Round 3`);
+        alert(`Your score is ${score}. You are quilifed for Round 3.`);
         await users
             .doc(userDoc)
             .get()

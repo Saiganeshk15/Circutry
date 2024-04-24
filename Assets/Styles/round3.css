@@ -4,22 +4,105 @@
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 html{
-    background-color: #008DDA !important;
-    height: 100vh !important;
+    background: url(../Images/1.jpg) no-repeat;
+    background-size: 100% 100%;
 }
 
 body {
-    width: 100vw;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    min-height: 98vh !important;
+    width: 100% !important;
 }
 
 nav {
+    margin-top: 2vh;
     display: flex;
-    height: 10vh !important;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 20px;
-    margin: 10px 0px;
+    padding: 10px 20px;
+    height: 11vh;
+}
+
+nav > img {
+    height: 10vh;
+}
+
+.main-wrapper{
+    margin-top: 2vh;
+    height: 80%;
+    display: flex;
+    color: #fff;
+    font-size: x-large;
+    flex-direction: column;
+    align-items: center;
+}
+
+.question{
+    background-color: rgb(210 194 194 / 30%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.1px);
+    border-radius: 20px;
+    height: fit-content;
+    padding: 20px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5vh;
+}
+
+#question{
+    margin: 5vh 0px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.login-btn{
+    cursor: pointer;
+    text-align: center;
+    margin-top: 4vh;
+    width: 10vw !important;
+    height: 50px !important;
+    font-size: 20px;
+    background-color: #ffffff;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+}
+
+.score-btn{
+    text-align: center;
+    margin-top: 4vh;
+    width: 10vw !important;
+    height: 50px !important;
+    font-size: 20px;
+    background-color: #ffffff;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+}
+
+.login-btn:hover{
+    background-color: transparent !important;
+    border: solid 3px #fff !important;
+    color: #fff;
+}
+
+#hint{
+    margin-left: 1vw;
+}
+
+#hint-image{
+    margin: 5vh 0;
+}
+
+a{
+    text-decoration: none;
+    margin: 1vw;
+}
+
+.warning{
+    font-weight: bolder;
 }

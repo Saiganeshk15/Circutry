@@ -28,11 +28,23 @@ async function getScore() {
     });
 }
 
+function colorChanger() {
+    var count = 0;
+    checked.forEach((e) => {
+        if (e) {
+            document.getElementById(`q${count + 1}`).style.backgroundColor =
+                "#0f0";
+        }
+        count++;
+    });
+}
+
 const form = document.querySelector("form");
 const input = document.querySelectorAll('input[name="options"]');
 const saveBtn = document.getElementById("save");
 const nxtBtn = document.getElementById("next");
 const submitBtn = document.getElementById("submit");
+const saveNextBtn = document.getElementById("save-next");
 const questionNo = document.getElementById("qno");
 const questionText = document.getElementById("question");
 const questionImage = document.getElementById("que-img");
@@ -47,6 +59,7 @@ async function displayQuestion() {
     if (request == 0) {
         await getScore();
         request = 1;
+        colorChanger();
     }
     if (checked[currentQuestion]) {
         document.getElementById(checked[currentQuestion]).checked = true;
@@ -80,7 +93,7 @@ input.forEach((el) => {
     });
 });
 
-//save button
+//Save Button
 saveBtn.addEventListener("click", async (e) => {
     checked[currentQuestion] = value;
     console.log(value);
@@ -109,6 +122,7 @@ saveBtn.addEventListener("click", async (e) => {
             });
         }
     }
+    colorChanger();
     value = "0";
 });
 
@@ -125,16 +139,56 @@ form.addEventListener("submit", (e) => {
     }
 });
 
+//Save & Next Button
+saveNextBtn.addEventListener("click", async (e) => {
+    checked[currentQuestion] = value;
+    if (value == "0") {
+        alert("Select a valid option.");
+        return;
+    } else if (value == image) {
+        if (scores[currentQuestion]) {
+        } else {
+            score += 1;
+        }
+        scores[currentQuestion] = 1;
+        await users.doc(userDoc).update({
+            r1scores: scores,
+            r1checked: checked,
+            r1score: score,
+        });
+    } else {
+        if (scores[currentQuestion] == 1) {
+            scores[currentQuestion] = 0;
+            score -= 1;
+            await users.doc(userDoc).update({
+                r1scores: scores,
+                r1checked: checked,
+                r1score: score,
+            });
+        }
+    }
+    colorChanger();
+    value = "0";
+    e.preventDefault();
+    form.reset();
+    if (currentQuestion < 14) {
+        currentQuestion = currentQuestion + 1;
+        displayQuestion();
+    } else {
+        currentQuestion = 0;
+        displayQuestion();
+    }
+});
+
 let flag = 0;
 submitBtn.addEventListener("click", async (e) => {
-    console.log(checked);
     checked.forEach((check) => {
         if (!check) {
             flag = 1;
         }
     });
     if (flag) {
-        alert(`Attemp all the questions ${score}`);
+        alert(`Attemp all the questions.`);
     } else if (score >= 12) {
         await users.doc(userDoc).update({
             r1score: score,

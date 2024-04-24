@@ -19,8 +19,8 @@ document
         e.preventDefault();
         w1.classList.remove("war");
         w2.classList.remove("war");
-        r1 = document.querySelector("input[name=r1]").value;
-        r2 = document.querySelector("input[name=r2]").value;
+        r1 = document.querySelector("input[name=r1]").value.toUpperCase();
+        r2 = document.querySelector("input[name=r2]").value.toUpperCase();
         if (r1.length != 10) {
             w1.classList.add("war");
             return;

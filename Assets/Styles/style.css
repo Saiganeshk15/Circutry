@@ -5,17 +5,40 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html{
+    background: url(../Images/1.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+
 body {
-    background-color: #008DDA !important;
-    height: 100vh !important;
-    width: 100vw !important;
+    min-height: 98vh !important;
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
 }
 
 nav {
+    margin-top: 2vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
+    height: 11vh;
+}
+
+nav > img {
+    height: 10vh;
+}
+
+.event-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+}
+
+.event-name > img{
+    height: 8vh;
 }
 
 /******************
@@ -51,6 +74,10 @@ input:valid {
     outline: none;
 }
 
+input:focus{
+    border: #000 1px solid;
+}
+
 .input:focus~label,
 input:valid~label {
     transform: translateY(-5%) scale(0.8);
@@ -75,18 +102,21 @@ select:-webkit-autofill:focus {
 }
 
 .login{
-    background-color: #DCDCDC;
     height: auto;
     padding: 30px 40px;
     width: fit-content;
-    margin: auto;
-    margin-top: 7%;
+    margin: 2vh auto;
     border-radius: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgb(210 194 194 / 30%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.1px);
+    border-radius: 20px;
 }
 h1{
+    color: #fff;
     display: flex !important;
     justify-content: center;
     margin-bottom: 20%;
@@ -98,16 +128,21 @@ form{
     align-items: center;
 }
 .login-btn{
+    cursor: pointer;
     width: 50% !important;
     height: 40px !important;
-    background-color: #008DDA;
+    background-color: #ffffff;
     color: #000;
     border: none;
     border-radius: 10px;
+    outline: none;
+    margin: 0 2vw;
+    font-weight: 700;
 }
 .login-btn:hover{
-    background-color: #ACE2E1 !important;
-    border: solid 1px #393939 !important;
+    background-color: transparent !important;
+    border: solid 3px #fff !important;
+    color: #fff;
 }
 
 #w1, #w2 {
