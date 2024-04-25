@@ -24,6 +24,10 @@ nav {
     height: 11vh;
 }
 
+.sb-logo{
+    margin-right: 10px;
+}
+
 nav > img {
     height: 10vh;
 }
