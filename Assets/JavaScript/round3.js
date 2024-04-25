@@ -123,12 +123,11 @@ form.addEventListener("submit", async (e) => {
                     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
                     score: score + 1,
                 });
-
-                score = score + 1;
                 await users.doc(userDoc).update({
                     score: score + 1,
                     r3score: scores,
                 });
+                score = score + 1;
             }
         }
         form.reset();
