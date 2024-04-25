@@ -61,6 +61,11 @@ let currentQuestion = 0;
 let request = 0;
 
 async function displayQuestion() {
+    if (currentQuestion == 9) {
+        saveNextBtn.value = "Save & Submit";
+    } else {
+        saveNextBtn.value = "Save & Next";
+    }
     if (request == 0) {
         await getScore();
         request = 1;
@@ -86,6 +91,12 @@ async function displayQuestion() {
                     opt1.innerHTML = doc.data()[1];
                     opt2.innerHTML = doc.data()[2];
                     opt3.innerHTML = doc.data()[3];
+                    const image = document.querySelectorAll(".img");
+                    image.forEach((img) => {
+                        img.addEventListener("click", async (e) => {
+                            img.classList.toggle("zoom");
+                        });
+                    });
                 } else {
                     opt1.textContent = doc.data()[1];
                     opt2.textContent = doc.data()[2];
@@ -158,42 +169,113 @@ form.addEventListener("submit", async (e) => {
 });
 
 saveNextBtn.addEventListener("click", async (e) => {
-    checked[currentQuestion] = value;
-    if (value == "0") {
-        alert("Select a valid option.");
-        return;
-    } else if (value == image) {
-        if (scores[currentQuestion]) {
-        } else {
-            score += 1;
-        }
-        scores[currentQuestion] = 1;
-        await users.doc(userDoc).update({
-            r2scores: scores,
-            r2checked: checked,
-            r2score: score,
-        });
-    } else {
-        if (scores[currentQuestion] == 1) {
-            scores[currentQuestion] = 0;
-            score -= 1;
+    if (currentQuestion == 9) {
+        checked[currentQuestion] = value;
+        if (value == "0") {
+            alert("Select a valid option.");
+            return;
+        } else if (value == image) {
+            if (scores[currentQuestion]) {
+            } else {
+                score += 1;
+            }
+            scores[currentQuestion] = 1;
             await users.doc(userDoc).update({
                 r2scores: scores,
                 r2checked: checked,
                 r2score: score,
             });
+        } else {
+            if (scores[currentQuestion] == 1) {
+                scores[currentQuestion] = 0;
+                score -= 1;
+                await users.doc(userDoc).update({
+                    r2scores: scores,
+                    r2checked: checked,
+                    r2score: score,
+                });
+            }
         }
-    }
-    colorChanger();
-    value = "0";
-    e.preventDefault();
-    form.reset();
-    if (currentQuestion < 9) {
-        currentQuestion = currentQuestion + 1;
-        displayQuestion();
+        colorChanger();
+        value = "0";
+        checked.forEach((checked) => {
+            if (!checked) {
+                flag = 1;
+            }
+        });
+        if (flag) {
+            alert("Attemp all the questions");
+        } else if (score >= 7) {
+            await users.doc(userDoc).update({
+                r2score: score,
+                r2checked: checked,
+                r2scores: scores,
+                score: r1score + score,
+                route: "Round3.html",
+            });
+            await scoreCol.doc(userDoc).set({
+                score: r1score + score,
+                timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+                p2: p2,
+            });
+            //round3 question decider
+            await users.doc(userDoc).set(
+                {
+                    r3q: Math.floor(Math.random() * 4) + 1,
+                    hintViewed: 0,
+                },
+                { merge: true }
+            );
+            alert(`Your score is ${score}. You are quilifed for Round 3.`);
+            await users
+                .doc(userDoc)
+                .get()
+                .then((doc) => {
+                    window.location.replace(doc.data().route);
+                });
+        } else {
+            alert(
+                `You score is ${score}. Acquire a minimum score of 7 to reach next level.`
+            );
+        }
     } else {
-        currentQuestion = 0;
-        displayQuestion();
+        checked[currentQuestion] = value;
+        if (value == "0") {
+            alert("Select a valid option.");
+            return;
+        } else if (value == image) {
+            if (scores[currentQuestion]) {
+            } else {
+                score += 1;
+            }
+            scores[currentQuestion] = 1;
+            await users.doc(userDoc).update({
+                r2scores: scores,
+                r2checked: checked,
+                r2score: score,
+            });
+        } else {
+            if (scores[currentQuestion] == 1) {
+                scores[currentQuestion] = 0;
+                score -= 1;
+                await users.doc(userDoc).update({
+                    r2scores: scores,
+                    r2checked: checked,
+                    r2score: score,
+                });
+            }
+        }
+        colorChanger();
+        value = "0";
+        e.preventDefault();
+        form.reset();
+        if (currentQuestion < 9) {
+            currentQuestion = currentQuestion + 1;
+            displayQuestion();
+        } else {
+            currentQuestion = 0;
+            displayQuestion();
+        }
     }
 });
 
@@ -246,6 +328,12 @@ document.querySelectorAll(".circle").forEach((el) => {
         form.reset();
         currentQuestion = el.textContent - 1;
         displayQuestion();
+    });
+});
+const images = document.querySelectorAll(".imgs");
+images.forEach((img) => {
+    img.addEventListener("click", async (e) => {
+        img.classList.toggle("zoom");
     });
 });
 //uncomment to disable developer tools

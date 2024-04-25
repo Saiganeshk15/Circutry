@@ -83,3 +83,10 @@ hintBtn.addEventListener("click", async () => {
     }
     displayQuestion();
 });
+
+const images = document.querySelectorAll(".img");
+images.forEach((img) => {
+    img.addEventListener("click", async (e) => {
+        img.classList.toggle("zoom");
+    });
+});

@@ -44,7 +44,7 @@ nav > img {
 }
 
 .image-wrapper > img{
-    width: 100% !important;
+    width: 100%;
     margin: auto;
 }
 
@@ -172,6 +172,20 @@ form{
     display: flex;
     justify-content: center;
 }
+
 .submit-btn > input{
     text-align: center;
+}
+
+.zoom{
+    transform: scale(2);
+    position: fixed;
+    left: 40%;
+    z-index: 2;
+    width: 30% !important;
+}
+
+img{
+    transition: ease-in-out;
+    transition-duration: 300ms;
 }

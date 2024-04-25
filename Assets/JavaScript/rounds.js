@@ -56,6 +56,11 @@ let currentQuestion = 0;
 let request = 0;
 
 async function displayQuestion() {
+    if (currentQuestion == 14) {
+        saveNextBtn.value = "Save & Submit";
+    } else {
+        saveNextBtn.value = "Save & Next";
+    }
     if (request == 0) {
         await getScore();
         request = 1;
@@ -141,42 +146,114 @@ form.addEventListener("submit", (e) => {
 
 //Save & Next Button
 saveNextBtn.addEventListener("click", async (e) => {
-    checked[currentQuestion] = value;
-    if (value == "0") {
-        alert("Select a valid option.");
-        return;
-    } else if (value == image) {
-        if (scores[currentQuestion]) {
-        } else {
-            score += 1;
-        }
-        scores[currentQuestion] = 1;
-        await users.doc(userDoc).update({
-            r1scores: scores,
-            r1checked: checked,
-            r1score: score,
-        });
-    } else {
-        if (scores[currentQuestion] == 1) {
-            scores[currentQuestion] = 0;
-            score -= 1;
+    if (currentQuestion == 14) {
+        checked[currentQuestion] = value;
+        console.log(value);
+        if (value == "0") {
+            alert("Select a valid option.");
+            return;
+        } else if (value == image) {
+            if (scores[currentQuestion]) {
+            } else {
+                score += 1;
+            }
+            scores[currentQuestion] = 1;
             await users.doc(userDoc).update({
                 r1scores: scores,
                 r1checked: checked,
                 r1score: score,
             });
+        } else {
+            if (scores[currentQuestion] == 1) {
+                scores[currentQuestion] = 0;
+                score -= 1;
+                await users.doc(userDoc).update({
+                    r1scores: scores,
+                    r1checked: checked,
+                    r1score: score,
+                });
+            }
         }
-    }
-    colorChanger();
-    value = "0";
-    e.preventDefault();
-    form.reset();
-    if (currentQuestion < 14) {
-        currentQuestion = currentQuestion + 1;
-        displayQuestion();
+        colorChanger();
+        value = "0";
+        checked.forEach((check) => {
+            if (!check) {
+                flag = 1;
+            }
+        });
+        if (flag) {
+            alert(`Attemp all the questions.`);
+        } else if (score >= 12) {
+            await users.doc(userDoc).update({
+                r1score: score,
+                r1checked: checked,
+                r1scores: scores,
+                score: score,
+                route: "Round2.html",
+            });
+            while (arr1.length < 10) {
+                var r = Math.floor(Math.random() * 10) + 1;
+                if (arr1.indexOf(r) === -1) arr1.push(r);
+            }
+            await users.doc(userDoc).set(
+                {
+                    r2q: arr1,
+                    r2score: 0,
+                    r2scores: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    r2checked: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                },
+                { merge: true }
+            );
+            alert(`Your score is ${score}. You are quilifed for Round 2.`);
+            await users
+                .doc(userDoc)
+                .get()
+                .then((doc) => {
+                    window.location.replace(doc.data().route);
+                });
+        } else {
+            alert(
+                `You score is ${score}. Acquire a minimum score of 12 to reach next level.`
+            );
+        }
     } else {
-        currentQuestion = 0;
-        displayQuestion();
+        checked[currentQuestion] = value;
+        if (value == "0") {
+            alert("Select a valid option.");
+            return;
+        } else if (value == image) {
+            if (scores[currentQuestion]) {
+            } else {
+                score += 1;
+            }
+            scores[currentQuestion] = 1;
+            await users.doc(userDoc).update({
+                r1scores: scores,
+                r1checked: checked,
+                r1score: score,
+            });
+        } else {
+            if (scores[currentQuestion] == 1) {
+                scores[currentQuestion] = 0;
+                score -= 1;
+                await users.doc(userDoc).update({
+                    r1scores: scores,
+                    r1checked: checked,
+                    r1score: score,
+                });
+            }
+        }
+        colorChanger();
+        value = "0";
+        e.preventDefault();
+        form.reset();
+        if (currentQuestion < 14) {
+            currentQuestion = currentQuestion + 1;
+            displayQuestion();
+        } else {
+            currentQuestion = 0;
+            displayQuestion();
+        }
     }
 });
 
@@ -229,6 +306,12 @@ document.querySelectorAll(".circle").forEach((el) => {
         form.reset();
         currentQuestion = el.textContent - 1;
         displayQuestion();
+    });
+});
+const images = document.querySelectorAll(".img");
+images.forEach((img) => {
+    img.addEventListener("click", async (e) => {
+        img.classList.toggle("zoom");
     });
 });
 //uncomment to disable developer tools
