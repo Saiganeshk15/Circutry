@@ -38,8 +38,79 @@ nav > img {
     display: flex;
     color: #fff;
     font-size: x-large;
-    flex-direction: column;
     align-items: center;
+}
+
+.left {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px;
+    width: 65%;
+}
+
+.right{
+    width: 20%;
+    background-color: rgb(210 194 194 / 30%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.1px);
+    border-radius: 20px;
+    color: #000;
+}
+
+
+.right-header{
+    background-color: #dddddd;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    font-weight: 700;
+    border-radius: 20px 20px 0px 0px;
+}
+
+#submit{
+    margin-bottom: 5vh;
+}
+
+.questions {
+    min-height: 75px;
+    height: fit-content;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+.circle{
+    cursor: pointer;
+    background-color: #ffffff;
+    border-radius: 50%;
+    height: 8vh;
+    width: 8vh;
+    font-size: 4vh;
+    margin: 1vh;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: ease-in-out 300ms;
+}
+
+.circle:hover{
+    transform: scale(1.2) !important;
+}
+
+.submit-btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.submit-btn > input{
+    text-align: center;
 }
 
 .question{
@@ -88,6 +159,10 @@ nav > img {
     border-radius: 10px;
 }
 
+#next{
+    margin: 0 1vw;
+}
+
 .login-btn:hover{
     background-color: transparent !important;
     border: solid 3px #fff !important;
@@ -104,7 +179,7 @@ nav > img {
 
 a{
     text-decoration: none;
-    margin: 1vw;
+    margin-right: 1vw;
 }
 
 .warning{
@@ -121,4 +196,76 @@ a{
 img{
     transition: ease-in-out;
     transition-duration: 300ms;
+}
+
+/***************
+INPUT FIELD
+**************/
+.input-group {
+    margin-top: -20%;
+    position: relative;
+    font-size: large;
+    display: none;
+}
+
+#w1{
+    display: none;
+    color: red;
+    font-size: small;
+}
+
+
+.input {
+    border: solid 1.5px #9e9e9e;
+    border-radius: 5px;
+    background: #fff;
+    padding: 1rem;
+    color: #000;
+    transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.right{
+    position: relative;
+    top: -110px;
+}
+
+.user-label {
+    position: absolute;
+    left: 15px;
+    color: #000;
+    pointer-events: none;
+    transform: translateY(1rem);
+    transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input:focus,
+input:valid {
+    outline: none;
+}
+
+input:focus{
+    border: #000 1px solid;
+}
+
+.input:focus~label,
+input:valid~label {
+    transform: translateY(-5%) scale(0.8);
+    background-color: transparent;
+    color: #000;
+    left: 10px;
+}
+
+/* Change autocomplete styles in WebKit */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-text-fill-color: black;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    transition: background-color 5000s ease-in-out 0s;
 }
