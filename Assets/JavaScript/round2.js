@@ -15,6 +15,7 @@ team.then((doc) => {
 });
 
 let arr,
+    arr1 = [],
     r1score,
     p2,
     score,
@@ -213,6 +214,10 @@ saveNextBtn.addEventListener("click", async (e) => {
                 score: r1score + score,
                 route: "Round3.html",
             });
+            while (arr1.length < 4) {
+                var r = Math.floor(Math.random() * 4) + 1;
+                if (arr1.indexOf(r) === -1) arr1.push(r);
+            }
             await scoreCol.doc(userDoc).set({
                 score: r1score + score,
                 timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -221,12 +226,13 @@ saveNextBtn.addEventListener("click", async (e) => {
             //round3 question decider
             await users.doc(userDoc).set(
                 {
-                    r3q: Math.floor(Math.random() * 4) + 1,
-                    hintViewed: 0,
+                    r3q: arr1,
+                    hintViewed: [0, 0, 0, 0],
+                    r3score: [0, 0, 0, 0],
                 },
                 { merge: true }
             );
-            alert(`Your score is ${score}. You are quilifed for Round 3.`);
+            alert(`Your score is ${score}. You are qualifed for Round 3.`);
             await users
                 .doc(userDoc)
                 .get()
@@ -296,6 +302,10 @@ submitBtn.addEventListener("click", async (e) => {
             score: r1score + score,
             route: "Round3.html",
         });
+        while (arr1.length < 4) {
+            var r = Math.floor(Math.random() * 4) + 1;
+            if (arr1.indexOf(r) === -1) arr1.push(r);
+        }
         await scoreCol.doc(userDoc).set({
             score: r1score + score,
             timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -304,12 +314,13 @@ submitBtn.addEventListener("click", async (e) => {
         //round3 question decider
         await users.doc(userDoc).set(
             {
-                r3q: Math.floor(Math.random() * 4) + 1,
-                hintViewed: 0,
+                r3q: arr1,
+                hintViewed: [0, 0, 0, 0],
+                r3score: [0, 0, 0, 0],
             },
             { merge: true }
         );
-        alert(`Your score is ${score}. You are quilifed for Round 3.`);
+        alert(`Your score is ${score}. You are qualifed for Round 3.`);
         await users
             .doc(userDoc)
             .get()

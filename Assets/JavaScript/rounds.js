@@ -204,7 +204,7 @@ saveNextBtn.addEventListener("click", async (e) => {
                 },
                 { merge: true }
             );
-            alert(`Your score is ${score}. You are quilifed for Round 2.`);
+            alert(`Your score is ${score}. You are qualifed for Round 2.`);
             await users
                 .doc(userDoc)
                 .get()
@@ -287,7 +287,7 @@ submitBtn.addEventListener("click", async (e) => {
             },
             { merge: true }
         );
-        alert(`Your score is ${score}. You are quilifed for Round 2`);
+        alert(`Your score is ${score}. You are qualifed for Round 2`);
         await users
             .doc(userDoc)
             .get()
