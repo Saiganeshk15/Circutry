@@ -19,22 +19,45 @@
     </nav>
 
     <div class="main-wrapper">
-        <div class="question">
-            <p id="question">Design a circuit using the bellow components.</p>
-            <ol id="components" class="components">
+        <div class="left">
+            <div class="question">
+                <p id="question">Design a circuit using the bellow components.</p>
+                <ol id="components" class="components">
 
-            </ol>
-            <br>
-            <p class="warning">(Taking hint will reduce your score.)</p>
+                </ol>
+                <br>
+                <p class="warning">(Taking hint will reduce your score.)</p>
+            </div>
+            <div class="">
+                <input id="save-next" class="login-btn" type="button" value="Save & Next">
+            </div>
+            <div class="buttons">
+                <a target="_blank" href="https://www.tinkercad.com/things/4m8jXr7tfoy-incredible-kasi-crift/editel">
+                    <input class="login-btn" type="button" value="Start Designing">
+                </a>
+                <input class="score-btn" id="score" type="button" value="Score: 0">
+                <input class="login-btn" id="hint" type="button" value="Get Hint">
+            </div>
+            <img id="hint-image" class="img" src="" alt="">
+            <form name="passkey" action="">
+                <div class="input-group">
+                    <input required="" type="password" name="r1" autocomplete="off" class="input">
+                    <label class="user-label">Enter Passkey</label>
+                    <p id="w1">Enter valid 10 dgiit roll no</p>
+                </div>
+            </form>
         </div>
-        <div class="buttons">
-            <a target="_blank" href="https://www.tinkercad.com/things/4m8jXr7tfoy-incredible-kasi-crift/editel">
-                <input class="login-btn" type="button" value="Start Designing">
-            </a>
-            <input class="score-btn" id="score" type="button" value="Score: 0">
-            <input class="login-btn" id="hint" type="button" value="Get Hint">
+        <div class="right">
+            <div class="right-header">
+                Round 2
+            </div>
+            <div class="questions">
+                <div id="q1" class="circle">1</div>
+                <div id="q2" class="circle">2</div>
+                <div id="q3" class="circle">3</div>
+                <div id="q4" class="circle">4</div>
+            </div>
         </div>
-        <img id="hint-image" class="img" src="" alt="">
     </div>
 
     <script src=" Assets/JavaScript/config.js">
