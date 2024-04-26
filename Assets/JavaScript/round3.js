@@ -99,16 +99,16 @@ form.addEventListener("submit", async (e) => {
         if (passkey.value != "123") {
             war.style.display = "block";
         } else {
-            scores[currentQuestion] = 1;
+            scores[currentQuestion] = 10;
             await scoreCol.doc(userDoc).update({
                 timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-                score: score + 1,
+                score: score + 10,
             });
             await users.doc(userDoc).update({
-                score: score + 1,
+                score: score + 10,
                 r3score: scores,
             });
-            score = score + 1;
+            score = score + 10;
             form.reset();
             displayQuestion();
         }
@@ -117,17 +117,17 @@ form.addEventListener("submit", async (e) => {
             war.style.display = "block";
         } else {
             if (scores[currentQuestion] == 0) {
-                scores[currentQuestion] = 1;
+                scores[currentQuestion] = 10;
                 currentQuestion += 1;
                 await scoreCol.doc(userDoc).update({
                     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    score: score + 1,
+                    score: score + 10,
                 });
                 await users.doc(userDoc).update({
-                    score: score + 1,
+                    score: score + 10,
                     r3score: scores,
                 });
-                score = score + 1;
+                score = score + 10;
             }
         }
         form.reset();
